@@ -32,6 +32,7 @@ class ContactForm extends Component {
         this.props.onSubmit({ name, number, id: nanoid(10) }); 
         this.setState({ name, number });
         this.resetForm();
+        event.target.reset();
     }
 
     resetForm = () => {
