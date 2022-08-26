@@ -1,10 +1,10 @@
-li{
+.list_item{
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
 }
-li:first-child{
+.list_item:first-child{
     margin-top: 0;
 }
 
