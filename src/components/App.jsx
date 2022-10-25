@@ -17,30 +17,7 @@ export class App extends Component  {
     filter: '',
   }
   
-  // handleSubmit = contact => {
-  //   const { contacts } = this.state;
-  //   if (contacts.map(
-  //     el => el.name === contact.name)
-  //     .includes(contacts.name)) { 
-  //       alert(`${contacts.name} is already in contacts!`);
-  //   }
-    // else {
-    //     this.setState(prevState => ({
-    //     contacts: [...prevState.contacts, contact],
-    //   }))
-    // }
-    
-    // event.preventDefault();
-    // const { name, number } = this.state;
-    // this.setState({name: event.target.name, number: event.target.number})
-    // const contact = {
-    //   id: nanoid(),
-    //   name: '',
-    //   number: '',
-    // }
-    // console.log(this.state);
-    // resetForm()
-  // }
+
 
   addContact = data => {
     const contact = {
@@ -78,6 +55,22 @@ export class App extends Component  {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
+  }
+
+  componentDidMount() { 
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+    console.log(contacts);
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+    
+  }
+  
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    };
   }
 
   render() {
