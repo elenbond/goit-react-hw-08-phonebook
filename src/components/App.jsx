@@ -16,8 +16,6 @@ export class App extends Component  {
     ],
     filter: '',
   }
-  
-
 
   addContact = data => {
     const contact = {
@@ -25,16 +23,12 @@ export class App extends Component  {
       name: data.name,
       number: data.number,
     }
+
     const { contacts } = this.state;
-    // if (contacts.map(
-    //   ({ name }) => name === contact.name).includes(!contact.name))
-    // if(contacts.map(item => item.name === contact.name))
-    // {
-    //     alert(`${contact.name} is already in contacts!`);
-    // } else
-    if (contacts.filter(item =>
-      item.name.toLowerCase() === contact.name.toLowerCase()).length !== 0) {
-      
+    const isExist = contacts.filter(item =>
+      item.name.toLowerCase() === contact.name.toLowerCase()).length !== 0;
+    
+    if (isExist) {
       alert(`${contact.name} is already in contacts!`);
       return;
     }
@@ -44,7 +38,6 @@ export class App extends Component  {
         }))
       console.log(data)
     }
-    
   }
 
   onChangeFilter = (event) => {
@@ -63,7 +56,6 @@ export class App extends Component  {
     if (parsedContacts) {
       this.setState({ contacts: parsedContacts });
     }
-    
   }
   
   componentDidUpdate(prevProps, prevState) {
@@ -94,5 +86,4 @@ export class App extends Component  {
       </div>
     );
   }
-  
 };
