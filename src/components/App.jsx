@@ -25,8 +25,8 @@ export class App extends Component  {
     }
 
     const { contacts } = this.state;
-    const isExist = contacts.filter(item =>
-      item.name.toLowerCase() === contact.name.toLowerCase()).length !== 0;
+    const isExist = contacts.find(item =>
+      item.name.toLowerCase() === contact.name.toLowerCase());
     
     if (isExist) {
       alert(`${contact.name} is already in contacts!`);
