@@ -1,30 +1,42 @@
 import { nanoid } from "nanoid";
 import React, { Component } from "react";
+import { useState, useEffect, useRef } from 'react';
 import Section from './Section/Section'
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
 
-export class App extends Component  {
+let contactsList = [
+    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+  ];
 
-  state = {
-    contacts: [
-      {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-      {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-      {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-      {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-    ],
-    filter: '',
-  }
+export const App = () => {
 
-  addContact = data => {
+  const [contacts, setContacts] = useState(contactsList);
+  const [filter, setFilter] = useState('');
+
+  useEffect(() => {
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+    if (parsedContacts) {
+      setContacts(parsedContacts);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  });
+
+  const addContact = data => {
     const contact = {
       id: nanoid(),
       name: data.name,
       number: data.number,
     }
 
-    const { contacts } = this.state;
     const isExist = contacts.find(item =>
       item.name.toLowerCase() === contact.name.toLowerCase());
     
@@ -33,57 +45,39 @@ export class App extends Component  {
       return;
     }
     else {
-      this.setState(prevState => ({
-        contacts: [...prevState.contacts, contact],
-        }))
-      console.log(data)
+      setContacts(state => {
+        return [...state, contact];
+      });
+      console.log(data);
     }
   }
 
-  onChangeFilter = (event) => {
-    this.setState({filter: event.currentTarget.value})
+  const onChangeFilter = (event) => {
+    // this.setState({ filter: event.currentTarget.value })
+    return setFilter({ filter: event.currentTarget.value });
   }
 
-  onDeleteContact = (contactId) => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
-    }));
+  const onDeleteContact = (contactId) => {
+    setContacts(state => state.filter(contact => contact.id !== contactId));
   }
 
-  componentDidMount() { 
-    const contacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contacts);
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
-    }
-  }
+  const normalizedFilter = filter.toLowerCase();
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(normalizedFilter));
   
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    };
-  }
-
-  render() {
-    const { contacts, filter } = this.state;
-    const normalizedFilter = filter.toLowerCase();
-    const filteredContacts = contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter));
-    return (
-      <div>
-        <Section title="Phonebook">
-          <ContactForm
-            onSubmit={this.addContact}
-            // contactNames={contacts}
-          />
-        </Section>
-        
-        <Section title="Contacts">
-          <Filter value={filter} onChange={this.onChangeFilter}/>
-          <ContactList contacts={filteredContacts}
-            onDeleteContact={this.onDeleteContact} />
-        </Section>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Section title="Phonebook">
+        <ContactForm
+          onSubmit={addContact}
+          // contactNames={contacts}
+        />
+      </Section>
+      <Section title="Contacts">
+        <Filter value={filter} onChange={onChangeFilter}/>
+        <ContactList contacts={filteredContacts}
+          onDeleteContact={onDeleteContact} />
+      </Section>
+    </div>
+  );
 };
