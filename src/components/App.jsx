@@ -1,6 +1,5 @@
 import { nanoid } from "nanoid";
-import React, { Component } from "react";
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Section from './Section/Section'
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
@@ -28,7 +27,7 @@ export const App = () => {
 
   useEffect(() => {
     window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  });
+  }, [contacts]);
 
   const addContact = data => {
     const contact = {
