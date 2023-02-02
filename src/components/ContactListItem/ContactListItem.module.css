@@ -1,0 +1,22 @@
+.list_item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+.list_item:first-child{
+    margin-top: 0;
+}
+
+button {
+    padding: 5px;
+    width: 80px;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover,
+button:focus {
+    cursor: pointer;
+    background-color: rgb(0, 179, 255);
+}
