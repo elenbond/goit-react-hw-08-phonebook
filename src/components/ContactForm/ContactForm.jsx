@@ -1,24 +1,27 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { nanoid } from "nanoid";
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import { getContacts, addContact } from "redux/contactsSlice";
+import { addContact } from "redux/operations";
+import { selectContacts } from "redux/selectors";
 import css from './ContactForm.module.css';
 
 export const ContactForm = () => { 
 
     const [name, setName] = useState('');
-    const [number, setNumber] = useState('');
+    const [phone, setNumber] = useState('');
 
-    const contacts = useSelector(getContacts);
+    const contacts = useSelector(selectContacts);
     const dispatch = useDispatch();
 
     const contactNameId = nanoid();
     const contactNumberId = nanoid();
 
+    console.log(contacts);
+
     const handleChange = event => {
-        const { name, value } = event.currentTarget;
+        const { name, value } = event.target;
         switch (name) {
             case 'name':
                 return setName(value);
@@ -27,30 +30,31 @@ export const ContactForm = () => {
             default:
                 return;
         }
-    }
+    };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = event => {
         event.preventDefault();
-        if (isExist({name, number})) {
+        if (isExist({ name, phone })) {
             toast.error('This contact is already in your phonebook!');
             return;
         }
-        dispatch(addContact({ name, number }));
+        dispatch(addContact({ name, phone }));
         resetForm();
-        event.target.reset();
-    }
+        // event.target.reset();
+    };
 
-    const isExist = ({ name, number }) => { 
+    const isExist = ({ name, phone }) => {
+        const normalizedName = name.toLowerCase();
         const result = contacts.find(
-            contact => contact.name === name && contact.number === number
+            contact => contact.name.toLowerCase() === normalizedName || contact.phone === phone
         );
         return result;
-    }
+    };
 
     const resetForm = () => {
         setName('');
         setNumber('');
-    }
+    };
 
     return (
         <form onSubmit={handleSubmit} className={css.form}>
@@ -72,6 +76,7 @@ export const ContactForm = () => {
                     type="tel"
                     name="number"
                     id={contactNumberId}
+                    value={phone}
                     onChange = {handleChange}
                     pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                     title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
@@ -86,7 +91,7 @@ export const ContactForm = () => {
 
 export default ContactForm;
 
-ContactForm.propTypes = {
-    name: PropTypes.string,
-    number: PropTypes.string,
-}
+// ContactForm.propTypes = {
+//     name: PropTypes.string,
+//     phone: PropTypes.string,
+// }
