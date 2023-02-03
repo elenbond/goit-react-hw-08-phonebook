@@ -44,39 +44,7 @@ export const contacts = createSlice({
         },
         [deleteContact.rejected]: handleRejected,
     }
-    // reducers: {
-    //     addContact: {
-    //         reducer(state, action) {
-    //             state.push(action.payload);
-    //         },
-    //         prepare: data => {
-    //             return {
-    //                 payload: {
-    //                     ...data,
-    //                     id: nanoid()
-    //                 },
-    //             };
-    //         },
-    //     },
-    //     deleteContact: (state, action) =>
-    //         state.filter(contact => contact.id !== action.payload),
-        
-    //     fetchingInProgress(state) {
-    //         state.isLoading = true;
-    //     },
-    //     fetchingSuccess(state, action) {
-    //         state.isLoading = false;
-    //         state.error = null;
-    //         state.items = action.payload;
-    //     },
-    //     fetchingError(state, action) {
-    //         state.isLoading = false;
-    //         state.error = action.payload;
-    //     },
-    // },
+
 });
 
-// export const { addContact, deleteContact, fetchingInProgress, fetchingSuccess, fetchingError } = contacts.actions;
 export const contactsReducer = contacts.reducer;
-
-console.log(contacts);

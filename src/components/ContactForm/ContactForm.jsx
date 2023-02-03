@@ -40,7 +40,7 @@ export const ContactForm = () => {
         }
         dispatch(addContact({ name, phone }));
         resetForm();
-        // event.target.reset();
+        event.target.reset();
     };
 
     const isExist = ({ name, phone }) => {

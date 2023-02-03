@@ -8,8 +8,6 @@ import css from './ContactList.module.css';
 const ContactList = () => { 
     const visibleContacts = useSelector(selectVisibleContacts);
 
-    // const filteredContacts = contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()));
-
     return (
         <ul className={css.list}>
             {visibleContacts.map(({ id, name, phone }) => (
