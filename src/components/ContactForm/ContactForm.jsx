@@ -18,8 +18,6 @@ export const ContactForm = () => {
     const contactNameId = nanoid();
     const contactNumberId = nanoid();
 
-    console.log(contacts);
-
     const handleChange = event => {
         const { name, value } = event.target;
         switch (name) {
