@@ -5,8 +5,6 @@ import { NavLink } from 'react-router-dom';
 const Home = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn);
 
-    console.log(isLoggedIn);
-
     return (
         <div>
             <h1>Hello, I am your Contact Menager!</h1>
