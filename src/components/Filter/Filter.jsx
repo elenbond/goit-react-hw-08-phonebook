@@ -1,11 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilter } from 'redux/filtersSlice';
-import { selectFilter } from 'redux/selectors';
+import { nanoid } from 'nanoid';
+import { setFilter } from 'redux/contacts/filtersSlice';
+import { selectFilter } from 'redux/contacts/contactsSelectors';
 import css from './Filter.module.css';
 
 const Filter = () => { 
     const filter = useSelector(selectFilter);
     const dispatch = useDispatch();
+    const id = nanoid();
 
     const changeFilter = event => {
         const { value } = event.target;
@@ -14,7 +16,10 @@ const Filter = () => {
 
     return (
         <label className={css.filter}> Find contact by name
-            <input type="text" value={filter}
+            <input
+                id={id}
+                type="text"
+                value={filter}
                 onChange={changeFilter}/>
         </label>
     )
