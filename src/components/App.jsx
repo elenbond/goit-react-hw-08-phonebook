@@ -9,7 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 // import ContactList from './ContactList/ContactList';
 // import { Loader } from "./Loader/Loader";
 // import { selectContacts, selectIsLoading, selectError } from "redux/contacts/contactsSelectors";
-import { useEffect } from "react";
+import { useEffect, lazy } from "react";
 // import { fetchContacts } from "redux/contacts/contactsOperations";
 import { selectIsRefreshing } from "redux/auth/authSelectors";
 import { fetchCurrentUser } from "redux/auth/authOperations";
@@ -18,17 +18,20 @@ import { PrivateRoute } from "./Route/PrivateRoute";
 import { NotFound } from "./NotFound/NotFound";
 
 import { Layout } from "./Layout/Layout";
-import { Home } from '../pages/Home/Home';
-import { Register } from '../pages/Register/Register';
-import { Login } from '../pages/Login/Login';
-import { Contacts } from '../pages/Contacts/Contacts';
+// import { HomePage } from '../pages/Home/Home';
+// import { Register } from '../pages/Register/Register';
+// import { Login } from '../pages/Login/Login';
+// import { Contacts } from '../pages/Contacts/Contacts';
+
+const HomePage = lazy(() => import('pages/Home/Home'));
+const ContactsPage = lazy(() => import('pages/Contacts/Contacts'));
+const LoginPage = lazy(() => import('pages/Login/Login'));
+const RegisterPage = lazy(() => import('pages/Register/Register'))
+
 
 export const App = () => {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
-  // const contacts = useSelector(selectContacts);
-  // const isLoading = useSelector(selectIsLoading);
-  // const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchCurrentUser());
@@ -36,16 +39,16 @@ export const App = () => {
 
   
   return isRefreshing ? (<b>Refreshing user...</b>) : (
-    // <div>
+    <div>
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
+        <Route index element={<HomePage />} />
         <Route path="/register"
-          element={<RestrictedRoute redirectTo="/contacts" component={<Register />} />} />
+          element={<RestrictedRoute redirectTo="/contacts" component={<RegisterPage />} />} />
         <Route path="/login"
-          element={<RestrictedRoute redirectTo="/contacts" component={<Login />} />} />
+          element={<RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />} />
         <Route path="/contacts"
-          element={<PrivateRoute redirectTo="/login" component={<Contacts />} />} />
+          element={<PrivateRoute redirectTo="/login" component={<ContactsPage />} />} />
         <Route path="*" element={<NotFound />} />
       </Route>
         {/* <Section title="Phonebook">
@@ -59,6 +62,6 @@ export const App = () => {
         </Section> */}
         {/* <ToastContainer autoClose={5000} /> */}
     </Routes>
-    // </div>
+    </div>
   );
 };
