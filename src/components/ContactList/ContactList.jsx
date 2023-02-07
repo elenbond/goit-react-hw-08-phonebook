@@ -2,14 +2,14 @@
 import { useSelector } from 'react-redux';
 import { selectVisibleContacts } from 'redux/contacts/contactsSelectors';
 import ContactListItem from '../ContactListItem/ContactListItem';
-import css from './ContactList.module.css';
+import { List } from './ContactList.styled';
 
 
 const ContactList = () => { 
     const visibleContacts = useSelector(selectVisibleContacts);
 
     return (
-        <ul className={css.list}>
+        <List>
             {visibleContacts.map(({ id, name, number }) => (
                 <ContactListItem
                     key={id}
@@ -18,7 +18,7 @@ const ContactList = () => {
                     number={number}
                 />
             ))}
-        </ul>
+        </List>
     )
 }
 

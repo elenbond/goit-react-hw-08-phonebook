@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
 export const Label = styled.label`
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
+    justify-content: center;
     width: 300px;
     height: 80px;
-    margin-bottom: 10px;
+    margin: o auto;
+    margin: 20px 0 10px 0;
     font-size: 20px;
-    color: #F0E9D2;
+    color: #E6DDC4;
 `;
 
 export const Input = styled.input`

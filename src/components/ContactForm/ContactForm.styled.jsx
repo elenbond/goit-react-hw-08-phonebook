@@ -5,8 +5,8 @@ export const Form = styled.form`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
-    width: 400px;
+    margin-top: 30px;
+    // width: 400px;
 `;
 
 export const Label = styled.label`
@@ -16,7 +16,7 @@ export const Label = styled.label`
     height: 80px;
     margin-bottom: 10px;
     font-size: 20px;
-    color: #F0E9D2;
+    color: #E6DDC4;
 `;
 
 export const Input = styled.input`
@@ -29,6 +29,8 @@ export const Button = styled.button`
     padding: 10px;
     margin-top: 30px;
     width: 200px;
+    color: #181D31;
+    background-color: #F0E9D2;
     border: none;
     border-radius: 5px;
     &:hover, &:focus{

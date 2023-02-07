@@ -7,7 +7,7 @@ export const Form = styled.form`
     align-items: center;
     justify-content: center;
     margin-top: 50px;
-    width: 400px;
+    // width: 400px;
 `;
 
 export const FormTitle = styled.title`
