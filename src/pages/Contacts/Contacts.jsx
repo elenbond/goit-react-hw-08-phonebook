@@ -10,7 +10,11 @@ const Contacts = () => {
         dispatch(fetchContacts());
     }, [dispatch]);
 
-    return <Phonebook />;
+    return (
+        <main>
+            <Phonebook />
+        </main>
+    );
 }
 
 export default Contacts;

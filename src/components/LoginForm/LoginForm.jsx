@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { NavLink } from 'react-router-dom';
 import { logIn } from "redux/auth/authOperations";
+import { Form, FormTitle, Label, Input, Button, Paragraphe, Link } from './LoginForm.styled'
 
 export const LoginForm = () => { 
     const dispatch = useDispatch();
@@ -32,16 +32,16 @@ export const LoginForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} autoComplete='off'>
-            <title>Log in to Contact Menager</title>
-            <label> Email
-                <input type="email" name="email" value={email} onChange={handleChange} />
-            </label>
-            <label> Password
-                <input type="password" name="password" value={password} onChange={handleChange} />
-            </label>
-            <button type="submit">Log in</button>
-            <p>Don't have an account? <NavLink to='/register'>Register</NavLink></p>
-        </form>
+        <Form onSubmit={handleSubmit} autoComplete='off'>
+            <FormTitle>Log in to Contact Menager</FormTitle>
+            <Label> Email
+                <Input type="email" name="email" value={email} onChange={handleChange} />
+            </Label>
+            <Label> Password
+                <Input type="password" name="password" value={password} onChange={handleChange} />
+            </Label>
+            <Button type="submit">Log in</Button>
+            <Paragraphe>Don't have an account? <Link to='/register'>Register</Link></Paragraphe>
+        </Form>
     );
 }

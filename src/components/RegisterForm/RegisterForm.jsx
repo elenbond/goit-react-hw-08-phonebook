@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { NavLink } from 'react-router-dom';
 import { register } from "redux/auth/authOperations";
+import { Form, FormTitle, Label, Input, Button, Paragraphe, Link } from './RegisterForm.styled'
 
 export const RegisterForm = () => { 
     const dispatch = useDispatch();
@@ -36,19 +36,19 @@ export const RegisterForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <title>Registration to Contact Menager</title>
-            <label> Name
-                <input type="text" name="name" value={name} onChange={handleChange} />
-            </label>
-            <label> Email
-                <input type="email" name="email" value={email} onChange={handleChange} />
-            </label>
-            <label> Password
-                <input type="password" name="password" value={password} onChange={handleChange} />
-            </label>
-            <button type="submit">Register</button>
-            <p>I already have an account <NavLink to='/login'>Log in</NavLink> </p>
-        </form>
+        <Form onSubmit={handleSubmit}>
+            <FormTitle>Registration to Contact Menager</FormTitle>
+            <Label> Name
+                <Input type="text" name="name" value={name} onChange={handleChange} />
+            </Label>
+            <Label> Email
+                <Input type="email" name="email" value={email} onChange={handleChange} />
+            </Label>
+            <Label> Password
+                <Input type="password" name="password" value={password} onChange={handleChange} />
+            </Label>
+            <Button type="submit">Register</Button>
+            <Paragraphe>I already have an account <Link to='/login'>Log in</Link> </Paragraphe>
+        </Form>
     )
 }

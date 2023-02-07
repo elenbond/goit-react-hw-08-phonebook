@@ -39,7 +39,7 @@ export const App = () => {
 
   
   return isRefreshing ? (<Loader />) : (
-    <div>
+    <div style={{width: '1200px', margin: '0 auto', padding: '0 15px'}}>
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
